@@ -9,4 +9,5 @@ class random_data_generator
 		random_data_generator();
 		int rng_place_in_array(int);
 		int rng_data_to_array();
+		int rng_place_in_list(int);
 };
