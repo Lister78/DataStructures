@@ -115,7 +115,7 @@ void LinkedList1::search_in_list(int value) {
 void LinkedList1::delete_from_list_r()
 {
 	random_data_generator random;                                                       //Tworzony jest obiekt do losowania liczb, nastepnie sprawdzane jest czy lista jest pusta, jezeli tak
-        if (check_if_list_empty()) {                                                    //Wyswietlany jest odpowiedni komunikat
+        if (filling==0) {                                                    //Wyswietlany jest odpowiedni komunikat
             std::cout << "Lista jest pusta." << std::endl;
             return;
         }                                                                               //Jezeli nie, to tworzony jest wskaznik tymczasowy, ktory wksazuje na 1 element listy
@@ -123,13 +123,11 @@ void LinkedList1::delete_from_list_r()
         int randomIndex = random.rng_place_in_list(filling);                               
         if (randomIndex == 0) {                                                             //Jezeli wylosowana wartosc to 0 to uzywana jest metoda do usuwania elementow z przodu listy
             delete_from_list_b();
-            filling-=1;
 	    return;
         }   
-        if(randomIndex == filling)
+        if(randomIndex == filling-1)
         {   
             delete_from_list_e();
-            filling-=1;
             return;
         }                                                                                
         for (int i = 0; i < randomIndex - 1; i++) {                                     //Nastpnie przestawiamy wskaznik(przez iterowanie sie odpowiednia ilosc razy), na element 1 przed elementem majacym byc usuniety
@@ -144,22 +142,19 @@ void LinkedList1::delete_from_list_r()
 void LinkedList1::add_to_list_r(int value)
 {
     random_data_generator random1;
-    if (check_if_list_empty()) {
+    if (filling==0) {
         
-        add_to_list_b(value);
-        filling+=1;                       // Jesli lista jest pusta, wywolywana jest metoda, ktora na poczatku dodaje element dany przez uzytkownika
+        add_to_list_b(value);                     // Jesli lista jest pusta, wywolywana jest metoda, ktora na poczatku dodaje element dany przez uzytkownika
         return;
     }
     Node* curr = head;                              //Jezeli lista nie jest pusta tworzony jest wskaznik typczasowy, ktory ustawiany jest na poczatek listy
     int randomIndex = random1.rng_place_in_array(filling);           //Losowane jest miejsce w ktore ma zostac wstawione
     if (randomIndex == 0) {                          //Jezeli wylosowany index wynosi 0, uzywana jest metoda do wstawiania wartosci na poczataek
         add_to_list_b(value);
-        filling+=1; 
         return;
     }
     if (randomIndex == filling) {       //Jezeli wyllosowane zostanie ostatnie miejsce, to uzywana jest metoda dodawania elementu na koniec
         add_to_list_e(value);
-        filling+=1;
         return;
     }
     for (int i = 0; i < randomIndex - 1; i++) {                         //Jezeli zostanie wylosowane inne miejsce to wskaznik jest przesuwany na element przed miejsce w ktore zaraz ma wejsc inny
@@ -169,4 +164,5 @@ void LinkedList1::add_to_list_r(int value)
     add->node_value=value;
     add->next_value_ptr = curr->next_value_ptr;
     curr->next_value_ptr = add;
+    filling+=1;
 }

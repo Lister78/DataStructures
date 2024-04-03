@@ -4,6 +4,7 @@
 #include "randomize.h"
 #include "timer.h"
 #include "LinkedList1.h"
+#include "DoubleLinkedList.h"
 void  Array_list()
 {
 	my_tab tab1;
@@ -328,13 +329,149 @@ void Linked_List1()
 	}
 	}while(1);
 }
+void Double_Linked_L()
+{
+    DoubleLinkedL list2;
+    random_data_generator random;
+    timer time;
+    int choice;
+    int value;
+    int how_many;
+    int choose_type;
+    do
+    {
+        std::cout<<"\n1.Dodawanie z tylu\n";
+        std::cout<<"2.Dodawanie z przodu\n";
+        std::cout<<"3.Dodawanie w losowych miejscach\n";
+        std::cout<<"4.Wylosuj dane do listy\n";
+        std::cout<<"5.Otwórz inne menu\n";
+        std::cin>>choice;
+        switch(choice)
+        {
+            case 1:
+                std::cout<<"Ile dodać elementów: ";
+                std::cin>>how_many;
+                for(int i = 0; i<how_many; i++)
+                {
+                    std::cout<<"\nJaka wartość wpisać do listy: ";
+                    std::cin>>value;
+                    list2.add_to_list_e(value);
+                }
+                break;
+            case 2:
+                std::cout<<"Ile dodać elementów: ";
+                std::cin>>how_many;
+                for(int i = 0; i<how_many; i++)
+                {
+                    std::cout<<"\nJaka wartość wpisać do listy: ";
+                    std::cin>>value;
+                    list2.add_to_list_b(value);
+                }
+                break;
+            case 3:
+                std::cout<<"Ile dodać elementów: ";
+                std::cin>>how_many;
+                for(int i = 0; i<how_many; i++)
+                {
+                    std::cout<<"Podaj wartość: "<<std::endl;
+                    std::cin>>value;
+                    list2.add_to_list_r(value);
+                }
+                break;
+            case 4:
+                std::cout<<"1.Wylosuj do tylu\n2.Wylosuj do przodu\n3.Wylosuj w losowych miejscach\n";
+                std::cin>>choose_type;
+                std::cout<<"\nIle danych do listy: ";
+                std::cin>>how_many;
+                switch(choose_type)
+                {
+                    case 1:
+                        time.start_m();
+                        for(int i = 0; i<how_many; i++)
+                            list2.add_to_list_e(random.rng_data_to_array());
+                        time.end_m();
+                        std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                        break;
+                    case 2:
+                        time.start_m();
+                        for(int i = 0; i<how_many; i++)
+                            list2.add_to_list_b(random.rng_data_to_array());
+                        time.end_m();
+                        std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                        break;    
+                    case 3:
+                        time.start_m();
+                        for(int i = 0; i<how_many; i++)
+                            list2.add_to_list_r(random.rng_data_to_array());
+                        time.end_m();
+                        std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                        break;
+                    default:
+                        std::cout<<"Error";
+                        break;
+                }
+                break;
+            case 5:
+                std::cout<<"Wybierz co dalej\n1.Wyświetl listę\n2.Usuń z listy\n3.Szukaj w liście: \n";
+                std::cin>>choose_type;
+                std::cout<<"\n";
+                switch(choose_type)
+                {
+                    case 1:
+                        list2.show_list();
+                        break;
+                    case 2:
+                        int choose_delete;
+                        std::cout<<"Wybierz skąd chcesz usunąć\n1.Z tylu\n2.Z przodu\n3.Z losowych miejsc\n";
+                        std::cin>>choose_delete;
+                        std::cout<<"Ile elementów\n";
+                        std::cin>>how_many;
+                        switch(choose_delete)
+                        {
+                            case 1:
+                                time.start_m();
+                                for(int i = 0; i<how_many; i++)
+                                    list2.delete_from_list_e();
+                                time.end_m();
+                                std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                                break;
+                            case 2:
+                                time.start_m();
+                                for(int i = 0; i<how_many; i++)
+                                    list2.delete_from_list_b();
+                                time.end_m();
+                                std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                                break;
+                            case 3:
+                                time.start_m();
+                                for(int i = 0; i<how_many; i++)
+                                    list2.delete_from_list_r();
+                                time.end_m();
+                                std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                                break;
+                        }
+                        break;
+                    case 3:
+                        std::cout<<"Jaką liczbę wyszukać w liście: ";
+                        std::cin>>how_many;
+                        std::cout<<"\n";
+                        time.start_m();
+                        list2.search_in_list(how_many);
+                        time.end_m();
+                        std::cout<<"\nCzas wykonania operacji to: "<<time.duration_t()<<" jednostek czasu procesora";
+                        break;
+                }
+                break;
+        }
+    } while(1);
+}
 
 int main()
 {
 	Node node;
 	int choose_structure;
 	std::cout<<"Wybierz strukture:\n";
-	std::cout<<"1.Array List\n2.Linked List(head pointer)";
+	std::cout<<"1.Array List\n2.Linked List(head pointer)\n3.Double Linked List";
 	std::cin>>choose_structure;
 	std::cout<<"\n";
 	switch(choose_structure)
@@ -344,6 +481,9 @@ int main()
 		break;
 		case 2:
 			Linked_List1();
+		break;
+		case 3:
+			Double_Linked_L();
 		break;
 		default:
 			std::cout<<"error";
